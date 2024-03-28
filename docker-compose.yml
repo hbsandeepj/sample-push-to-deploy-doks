@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+    web:
+        container_name: python-web
+        restart: always
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        volumes:
+            - ./.:/app/
+        ports:
+            - "9870:80"
+        networks:
+            - sample_app_network
+networks:
+    sample_app_network:
