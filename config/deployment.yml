@@ -5,7 +5,7 @@ metadata:
   labels:
     app: python-example
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: python-example
@@ -24,6 +24,9 @@ spec:
         image: <IMAGE>
         ports:
         - containerPort: 80
+        envFrom:
+        - secretRef:
+            name: my-secret
         resources:
           requests:
             cpu: 100m

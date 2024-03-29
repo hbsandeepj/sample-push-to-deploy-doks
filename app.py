@@ -1,13 +1,19 @@
+import os
 from flask import Flask, jsonify
 from flask_mysqldb import MySQL
+from dotenv import load_dotenv
+from os.path import join, dirname
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'bhn-prod-db-do-user-15790658-0.c.db.ondigitalocean.com'
-app.config['MYSQL_USER'] = 'doadmin'
-app.config['MYSQL_PASSWORD'] = 'AVNS_uS_AX6dwa30d0e1vpGW'
-app.config['MYSQL_DB'] = 'braveheart_nation'
-app.config['MYSQL_PORT'] = 25060
+app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST')
+app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
+app.config['MYSQL_PORT'] = int(os.environ.get('MYSQL_PORT'))
 
 mysql = MySQL(app)
 
@@ -18,9 +24,6 @@ def hello():
     columns = [col[0] for col in cursor.description]
     result = [dict(zip(columns, row)) for row in cursor.fetchall()]
     cursor.close()
-    print("==============",result)
-    html = """Hello {name}!
-    Hostname: This is an automated message post production deployment!!"""
     return jsonify(result)
 
 if __name__ == "__main__":
