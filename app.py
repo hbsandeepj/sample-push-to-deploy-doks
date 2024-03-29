@@ -19,6 +19,7 @@ mysql = MySQL(app)
 
 @app.route("/")
 def hello():
+    print(os.environ)
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM auth_user LIMIT 5;")
     columns = [col[0] for col in cursor.description]
