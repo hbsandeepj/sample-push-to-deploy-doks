@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     html = """Hello {name}!
-    Hostname: {hostname} This is an automated message!!"""
+    Hostname: This is an automated message post production deployment!!"""
     return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname())
 
 if __name__ == "__main__":
